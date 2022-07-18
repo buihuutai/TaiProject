@@ -189,11 +189,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/temperature_range"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:text=""
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="dsad"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
 
     <RelativeLayout
         android:id="@+id/air_conditioner_container"
@@ -285,12 +285,13 @@
             android:background="@drawable/layout_bg"
             android:paddingVertical="10dp"
             android:layout_marginEnd="10dp">
+
             <ImageView
                 android:id="@+id/fan_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/fanoff"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/fanoff" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

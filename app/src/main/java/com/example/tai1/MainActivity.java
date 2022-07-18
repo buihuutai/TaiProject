@@ -37,20 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         mappingLayout();
 
-        setupPigListView();
-
         humidityWarning.setVisibility(View.INVISIBLE);
         brightnessWarning.setVisibility(View.INVISIBLE);
 
         setupTemperatureRageBar();
-
-        compareTemperature();
-
-        try {
-            airConditionerTemperatureValue = Integer.parseInt(airConditionerTemperature.getText().toString());
-        } catch (NumberFormatException nfe) {
-            System.out.println("Could not parse" + nfe);
-        }
 
         temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
 
@@ -61,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
                 compareTemperature();
             }
         });
+
+        compareTemperature();
+
+        try {
+            airConditionerTemperatureValue = Integer.parseInt(airConditionerTemperature.getText().toString());
+        } catch (NumberFormatException nfe) {
+            System.out.println("Could not parse" + nfe);
+        }
 
         checkAirConditionerStatus();
 
@@ -139,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setupPigListView();
+
     }
 
     private void mappingLayout() {
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void compareTemperature() {
         Integer barnTemperature = Integer.parseInt(barnTemperatureText.getText().toString());
-        if (barnTemperature > (20+temperatureRangeBar.getLeftIndex()) && barnTemperature < (20+temperatureRangeBar.getRightIndex())) {
+        if (barnTemperature > (temperatureRangeBar.getLeftIndex()) && barnTemperature < (temperatureRangeBar.getRightIndex())) {
             temperatureWarning.setVisibility(View.INVISIBLE);
         } else {
             temperatureWarning.setVisibility(View.VISIBLE);
