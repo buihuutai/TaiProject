@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_marginEnd="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/pig_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/pig"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/pig_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID1"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/pig_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age: 5"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/pig_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Origin: Japan"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/pig_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight: 54"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
