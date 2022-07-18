@@ -42,8 +42,8 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder>{
         holder.pigImage.setImageResource(R.drawable.pig);
         holder.pigName.setText(pig.getName());
         holder.pigAge.setText("Age: " + pig.getAge());
-        holder.pigOrigin.setText("Origin " + pig.getOrigin());
-        holder.pigWeight.setText("Weight" + pig.getWeight());
+        holder.pigOrigin.setText("Origin: " + pig.getOrigin());
+        holder.pigWeight.setText("Weight: " + pig.getWeight());
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.example.tai1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -15,12 +17,20 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.edmodo.rangebar.RangeBar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView temperaturebarm;
+    private TextView humiditybarm;
+    private TextView lightbarm;
     private RangeBar temperatureRangeBar;
     private TextView temperatureRangeTextView, airConditionerTemperature, barnTemperatureText;
     private ImageView temperatureWarning, humidityWarning, brightnessWarning, airConditionerImage, decreaseTemperature, increaseTemperature, fanImage, lightImage;
@@ -29,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Integer airConditionerTemperatureValue;
     private RecyclerView pigList;
     private PigAdapter pigAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,56 @@ public class MainActivity extends AppCompatActivity {
         } catch (NumberFormatException nfe) {
             System.out.println("Could not parse" + nfe);
         }
+
+        // Read from the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_temp = database.getReference("Farm/Barn1/Sensor/Temperature");
+        myRef_temp.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data = snapshot.getValue().toString();
+                    temperaturebarm.setText(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                temperaturebarm.setText("25");
+            }
+        });
+
+        DatabaseReference myRef_humi = database.getReference("Farm/Barn1/Sensor/Humidity");
+        myRef_humi.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data = snapshot.getValue().toString();
+                    humiditybarm.setText(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                humiditybarm.setText("50");
+            }
+        });
+
+        DatabaseReference myRef_light = database.getReference("Farm/Barn1/Sensor/Light");
+        myRef_light.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data = snapshot.getValue().toString();
+                    lightbarm.setText(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                lightbarm.setText("50");
+            }
+        });
 
         temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
 
@@ -109,6 +170,11 @@ public class MainActivity extends AppCompatActivity {
         fanOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Fan");
+                myRef.setValue("ON");
+
                 fanImage.setImageResource(R.drawable.fanon);
                 fanOn.setBackgroundColor(Color.parseColor("#60E65B"));
                 fanOn.setTextColor(Color.parseColor("#FFFFFF"));
@@ -120,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
         fanOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Fan");
+                myRef.setValue("OFF");
+
                 fanImage.setImageResource(R.drawable.fanoff);
                 fanOff.setBackgroundColor(Color.parseColor("#E65B5B"));
                 fanOff.setTextColor(Color.parseColor("#FFFFFF"));
@@ -133,8 +204,14 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     lightImage.setImageResource(R.drawable.lighton);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Lamp");
+                    myRef.setValue("ON");
                 } else {
                     lightImage.setImageResource(R.drawable.lightoff);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Lamp");
+                    myRef.setValue("OFF");
                 }
             }
         });
@@ -142,6 +219,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mappingLayout() {
+        temperaturebarm = findViewById(R.id.temperature_value);
+        humiditybarm = findViewById(R.id.humidity_value);
+        lightbarm = findViewById(R.id.brightness_value);
         temperatureWarning = findViewById(R.id.temperature_warning);
         humidityWarning = findViewById(R.id.humidity_warning);
         brightnessWarning = findViewById(R.id.brightness_warning);
@@ -191,12 +271,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void compareTemperature() {
-        Integer barnTemperature = Integer.parseInt(barnTemperatureText.getText().toString());
-        if (barnTemperature > (20+temperatureRangeBar.getLeftIndex()) && barnTemperature < (20+temperatureRangeBar.getRightIndex())) {
-            temperatureWarning.setVisibility(View.INVISIBLE);
-        } else {
-            temperatureWarning.setVisibility(View.VISIBLE);
-        }
+//        Integer barnTemperature = Integer.parseInt(barnTemperatureText.getText().toString());
+//        if (barnTemperature > (20+temperatureRangeBar.getLeftIndex()) && barnTemperature < (20+temperatureRangeBar.getRightIndex())) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_temp = database.getReference("Farm/Barn1/Sensor/Temperature");
+        myRef_temp.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Integer data = Integer.parseInt(snapshot.getValue().toString());
+                    if ((temperatureRangeBar.getLeftIndex() < data) && (data < temperatureRangeBar.getRightIndex())) {
+                        temperatureWarning.setVisibility(View.INVISIBLE);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("Farm/Barn1/WARNING");
+                        myRef.setValue("OFF");
+
+                    } else {
+                        temperatureWarning.setVisibility(View.VISIBLE);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("Farm/Barn1/WARNING");
+                        myRef.setValue("ON");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                temperatureWarning.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     private void checkAirConditionerStatus(){
