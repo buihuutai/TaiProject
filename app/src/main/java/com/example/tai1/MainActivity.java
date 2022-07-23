@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Integer airConditionerTemperatureValue;
     private RecyclerView pigList;
     private PigAdapter pigAdapter;
-
+    private List<Pig> mListPigs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         DatabaseReference myRef_light = database.getReference("Farm/Barn1/Sensor/Light");
         myRef_light.addValueEventListener(new ValueEventListener() {
             @Override
@@ -136,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
                     airConditionerTemperature.setVisibility(View.VISIBLE);
                     airConditionerPowerButton.setText("ON");
                     airConditionerPowerButton.setBackgroundColor(Color.parseColor("#60E65B"));
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Air-Conditioner/Status-AC");
+                    myRef.setValue("ON");
                 } else {
                     airConditionerImage.setImageResource(R.drawable.airconditioner);
                     increaseTemperature.setVisibility(View.INVISIBLE);
@@ -143,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
                     airConditionerTemperature.setVisibility(View.INVISIBLE);
                     airConditionerPowerButton.setText("OFF");
                     airConditionerPowerButton.setBackgroundColor(Color.parseColor("#E65B5B"));
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Air-Conditioner/Status-AC");
+                    myRef.setValue("OFF");
                 }
             }
         });
@@ -152,7 +160,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (airConditionerTemperatureValue > 20) {
                     airConditionerTemperatureValue--;
+                    Integer temp_airConditionerTemperatureValue = airConditionerTemperatureValue;
                     airConditionerTemperature.setText(Integer.toString(airConditionerTemperatureValue));
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Air-Conditioner/Temperature-AC");
+                    myRef.setValue(temp_airConditionerTemperatureValue);
                 }
             }
         });
@@ -162,7 +175,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (airConditionerTemperatureValue < 32) {
                     airConditionerTemperatureValue++;
+                    Integer temp_airConditionerTemperatureValue = airConditionerTemperatureValue;
                     airConditionerTemperature.setText(Integer.toString(airConditionerTemperatureValue));
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Farm/Barn1/Device/Air-Conditioner/Temperature-AC");
+                    myRef.setValue(temp_airConditionerTemperatureValue);
                 }
             }
         });
@@ -239,25 +257,45 @@ public class MainActivity extends AppCompatActivity {
         lightSwitch = findViewById(R.id.light_switch);
         lightImage = findViewById(R.id.light_image);
         pigList = findViewById(R.id.pig_list);
-
     }
 
     private void setupPigListView() {
-        pigAdapter = new PigAdapter(this);
+//        pigAdapter = new PigAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         pigList.setLayoutManager(linearLayoutManager);
 
-        pigAdapter.setData(getListPigProfile());
+        mListPigs = new ArrayList<>();
+        pigAdapter = new PigAdapter(mListPigs);
         pigList.setAdapter(pigAdapter);
+        getListPigProfile();
+//        pigList.setAdapter(pigAdapter);
     }
 
-    private List<Pig> getListPigProfile() {
-        List<Pig> list = new ArrayList<>();
-        list.add(new Pig(R.drawable.pig, "ID1", "5", "Japan", "54"));
-        list.add(new Pig(R.drawable.pig, "ID2", "12", "US", "15"));
-        list.add(new Pig(R.drawable.pig, "ID3", "6", "UK", "56"));
-        return list;
+    private void getListPigProfile() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Farm/Barn1/PET");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mListPigs.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Pig pig = dataSnapshot.getValue(Pig.class);
+                    mListPigs.add(pig);
+                }
+                pigAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+//                 if call Firebase failed then hard code for info pet
+//                List<Pig> list = new ArrayList<>();
+                mListPigs.add(new Pig("ID1", "5", "Japan", "54"));
+                mListPigs.add(new Pig( "ID2", "12", "US", "15"));
+                mListPigs.add(new Pig("ID3", "6", "UK", "56"));
+                pigAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void setupTemperatureRageBar() {
