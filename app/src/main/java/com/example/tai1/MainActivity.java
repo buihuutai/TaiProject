@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -113,12 +112,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
 
+        temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
+        Pctthreshold();
         temperatureRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int i, int i1) {
                 temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef_up = database.getReference("Farm/Barn1/Threshold/Temperature/UP");
+                myRef_up.setValue(Integer.toString(temperatureRangeBar.getRightIndex()));
+                DatabaseReference myRef_dw = database.getReference("Farm/Barn1/Threshold/Temperature/DW");
+                myRef_dw.setValue(Integer.toString(temperatureRangeBar.getLeftIndex()));
                 compareTemperature();
             }
         });
@@ -185,6 +190,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        DatabaseReference myRef_fan = database.getReference("Farm/Barn1/Device/Fan");
+        myRef_fan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data_fan = snapshot.getValue().toString();
+                    if (data_fan.equals("ON")){
+                        fanImage.setImageResource(R.drawable.fanon);
+                        fanOn.setBackgroundColor(Color.parseColor("#60E65B"));
+                        fanOn.setTextColor(Color.parseColor("#FFFFFF"));
+                        fanOff.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                        fanOff.setTextColor(Color.parseColor("#000000"));
+                    }
+                    else {
+                        fanImage.setImageResource(R.drawable.fanoff);
+                        fanOff.setBackgroundColor(Color.parseColor("#E65B5B"));
+                        fanOff.setTextColor(Color.parseColor("#FFFFFF"));
+                        fanOn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                        fanOn.setTextColor(Color.parseColor("#000000"));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
         fanOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,6 +247,25 @@ public class MainActivity extends AppCompatActivity {
                 fanOn.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 fanOn.setTextColor(Color.parseColor("#000000"));
             }
+        });
+
+        DatabaseReference myRef_lamp = database.getReference("Farm/Barn1/Device/Lamp");
+        myRef_lamp.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data_lamp = snapshot.getValue().toString();
+                    if (data_lamp.equals("ON")){
+                        lightImage.setImageResource(R.drawable.lighton);
+                    }
+                    else {
+                        lightImage.setImageResource(R.drawable.lightoff);;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
         lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -299,6 +350,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupTemperatureRageBar() {
+        Pctthreshold();
         temperatureRangeBar.setTickCount(101);
         temperatureRangeBar.setTickHeight(0);
         temperatureRangeBar.setBarWeight(5);
@@ -306,6 +358,40 @@ public class MainActivity extends AppCompatActivity {
         temperatureRangeBar.setConnectingLineWeight(5);
         temperatureRangeBar.setThumbColorNormal(Color.parseColor("#FA4F00"));
         temperatureRangeBar.setThumbRadius(7);
+    }
+
+    private void Pctthreshold() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_temp = database.getReference("Farm/Barn1/Threshold/Temperature/UP");
+        myRef_temp.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data_up = snapshot.getValue().toString();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef_temp = database.getReference("Farm/Barn1/Threshold/Temperature/DW");
+                    myRef_temp.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String data_dw = snapshot.getValue().toString();
+                                temperatureRangeTextView.setText(data_dw + " - " + data_up);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void compareTemperature() {
@@ -341,21 +427,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkAirConditionerStatus(){
-        String power = airConditionerPowerButton.getText().toString();
-        if (power.equals("OFF")) {
-            airConditionerImage.setImageResource(R.drawable.airconditioneron);
-            increaseTemperature.setVisibility(View.VISIBLE);
-            decreaseTemperature.setVisibility(View.VISIBLE);
-            airConditionerTemperature.setVisibility(View.VISIBLE);
-            airConditionerPowerButton.setText("ON");
-            airConditionerPowerButton.setBackgroundColor(Color.parseColor("#60E65B"));
-        } else {
-            airConditionerImage.setImageResource(R.drawable.airconditioner);
-            increaseTemperature.setVisibility(View.INVISIBLE);
-            decreaseTemperature.setVisibility(View.INVISIBLE);
-            airConditionerTemperature.setVisibility(View.INVISIBLE);
-            airConditionerPowerButton.setText("OFF");
-            airConditionerPowerButton.setBackgroundColor(Color.parseColor("#E65B5B"));
-        }
+//        String power = airConditionerPowerButton.getText().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_fan = database.getReference("Farm/Barn1/Device/Air-Conditioner/Status-AC");
+        myRef_fan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String data_ac = snapshot.getValue().toString();
+                    if (data_ac.equals("ON")){
+                        airConditionerImage.setImageResource(R.drawable.airconditioneron);
+                        increaseTemperature.setVisibility(View.VISIBLE);
+                        decreaseTemperature.setVisibility(View.VISIBLE);
+                        airConditionerTemperature.setVisibility(View.VISIBLE);
+                        airConditionerPowerButton.setText("ON");
+                        airConditionerPowerButton.setBackgroundColor(Color.parseColor("#60E65B"));
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef_fan = database.getReference("Farm/Barn1/Device/Air-Conditioner/Temperature-AC");
+                        myRef_fan.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    String temp_ac = snapshot.getValue().toString();
+                                    airConditionerTemperature.setText(temp_ac);
+                                    airConditionerTemperatureValue = Integer.parseInt(temp_ac);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                    else {
+                        airConditionerImage.setImageResource(R.drawable.airconditioner);
+                        increaseTemperature.setVisibility(View.INVISIBLE);
+                        decreaseTemperature.setVisibility(View.INVISIBLE);
+                        airConditionerTemperature.setVisibility(View.INVISIBLE);
+                        airConditionerPowerButton.setText("OFF");
+                        airConditionerPowerButton.setBackgroundColor(Color.parseColor("#E65B5B"));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
 }
