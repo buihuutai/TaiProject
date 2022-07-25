@@ -120,8 +120,8 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 
-        temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
         Pctthreshold();
+//        temperatureRangeTextView.setText(temperatureRangeBar.getLeftIndex() + " - " + temperatureRangeBar.getRightIndex());
         temperatureRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int i, int i1) {
@@ -395,7 +395,7 @@ public class MainActivity2 extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String data_dw = snapshot.getValue().toString();
-                                temperatureRangeBar.setThumbIndices(Integer.parseInt(data_dw), Integer.parseInt(data_up));
+//                                temperatureRangeBar.setThumbIndices(Integer.parseInt(data_dw), Integer.parseInt(data_up));
                                 temperatureRangeTextView.setText(data_dw + " - " + data_up);
                             }
                         }
