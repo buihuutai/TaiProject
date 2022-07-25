@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         mappingLayout();
 
-        setupPigListView();
-
         humidityWarning.setVisibility(View.INVISIBLE);
         brightnessWarning.setVisibility(View.INVISIBLE);
 
@@ -127,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
                 compareTemperature();
             }
         });
+
+        compareTemperature();
+
+        try {
+            airConditionerTemperatureValue = Integer.parseInt(airConditionerTemperature.getText().toString());
+        } catch (NumberFormatException nfe) {
+            System.out.println("Could not parse" + nfe);
+        }
 
         checkAirConditionerStatus();
 
@@ -284,6 +290,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        setupPigListView();
 
     }
 
