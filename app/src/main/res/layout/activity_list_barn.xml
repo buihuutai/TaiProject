@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListBarn"
+    android:background="#EDEDED">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/barn1_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/barn1_avatar"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barnavatar"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/barn1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/barn1_avatar"
+                android:text="Chuồng 1"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/next"
+                android:tint="#9C9C9C"
+                tools:ignore="UseAppTint" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/barn2_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp"
+        android:layout_below="@id/barn1_cardview">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/barn2_avatar"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/barn2avatar" />
+
+            <TextView
+                android:id="@+id/barn2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/barn2_avatar"
+                android:text="Chuồng 2"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/next"
+                android:tint="#9C9C9C"
+                tools:ignore="UseAppTint"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+  </RelativeLayout>
