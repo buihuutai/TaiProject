@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity2">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,26 +15,26 @@
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/bg" />
+            android:src="@drawable/barn2bg" />
 
         <ImageView
-            android:id="@+id/back_button"
+            android:id="@+id/back_button2"
             android:layout_width="15dp"
             android:layout_height="30dp"
-            android:rotation="180"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="23dp"
             android:layout_marginRight="15dp"
+            android:rotation="180"
             android:src="@drawable/next"
             android:tint="#FFFFFF"
-            tools:ignore="UseAppTint"
-            android:layout_marginTop="23dp"
-            android:layout_marginLeft="20dp"/>
+            tools:ignore="UseAppTint" />
 
         <TextView
-            android:id="@+id/barn_name"
+            android:id="@+id/barn_name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chuồng 1"
+            android:text="Chuồng 2"
             android:textColor="#F81E1E"
             android:textSize="30dp"
             android:textAllCaps="true"
@@ -43,10 +43,10 @@
             android:layout_marginTop="20dp"/>
 
         <LinearLayout
-            android:id="@+id/temp_hum_bright"
+            android:id="@+id/temp_hum_bright2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/barn_name"
+            android:layout_below="@id/barn_name2"
             android:layout_marginTop="20dp"
             android:weightSum="3">
             <RelativeLayout
@@ -54,13 +54,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <RelativeLayout
-                    android:id="@+id/temperature_layout"
+                    android:id="@+id/temperature_layout2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:id="@+id/temperature_value"
+                        android:id="@+id/temperature_value2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="25"
@@ -71,17 +71,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/temperature_value"
+                        android:layout_toEndOf="@+id/temperature_value2"
                         android:text="°C"
                         android:textColor="#FA4F00"
                         android:textSize="35dp" />
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/temperature_text"
+                    android:id="@+id/temperature_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/temperature_layout"
+                    android:layout_below="@+id/temperature_layout2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:text="Nhiệt độ"
@@ -90,10 +90,10 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/temperature_warning"
+                    android:id="@+id/temperature_warning2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_below="@+id/temperature_text"
+                    android:layout_below="@+id/temperature_text2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/warning" />
@@ -104,12 +104,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <RelativeLayout
-                    android:id="@+id/humidity_layout"
+                    android:id="@+id/humidity_layout2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
                     <TextView
-                        android:id="@+id/humidity_value"
+                        android:id="@+id/humidity_value2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="60"
@@ -119,16 +119,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/humidity_value"
+                        android:layout_toEndOf="@+id/humidity_value2"
                         android:text="%"
                         android:textColor="#0934B6"
                         android:textSize="35dp"/>
                 </RelativeLayout>
                 <TextView
-                    android:id="@+id/humidity_text"
+                    android:id="@+id/humidity_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/humidity_layout"
+                    android:layout_below="@+id/humidity_layout2"
                     android:layout_centerHorizontal="true"
                     android:text="Độ ẩm"
                     android:textColor="#CFCFCF"
@@ -137,10 +137,10 @@
                     android:textStyle="bold"/>
 
                 <ImageView
-                    android:id="@+id/humidity_warning"
+                    android:id="@+id/humidity_warning2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_below="@+id/humidity_text"
+                    android:layout_below="@+id/humidity_text2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/warning" />
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <TextView
-                    android:id="@+id/brightness_value"
+                    android:id="@+id/brightness_value2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -160,10 +160,10 @@
                     android:textSize="35dp"
                     android:textStyle="bold" />
                 <TextView
-                    android:id="@+id/brightness_text"
+                    android:id="@+id/brightness_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/brightness_value"
+                    android:layout_below="@+id/brightness_value2"
                     android:layout_centerHorizontal="true"
                     android:text="Ánh sáng"
                     android:textColor="#CFCFCF"
@@ -172,10 +172,10 @@
                     android:textStyle="bold"/>
 
                 <ImageView
-                    android:id="@+id/brightness_warning"
+                    android:id="@+id/brightness_warning2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_below="@+id/brightness_text"
+                    android:layout_below="@+id/brightness_text2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/warning" />
@@ -183,10 +183,10 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/range_value_text"
+            android:id="@+id/range_value_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/temp_hum_bright"
+            android:layout_below="@+id/temp_hum_bright2"
             android:text="Ngưỡng nhiệt độ"
             android:textColor="#323232"
             android:textStyle="bold|italic"
@@ -195,18 +195,18 @@
             android:layout_marginStart="20dp"/>
 
         <com.edmodo.rangebar.RangeBar
-            android:id="@+id/temperature_range"
+            android:id="@+id/temperature_range2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/range_value_text"
+            android:layout_below="@+id/range_value_text2"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="15dp" />
 
         <TextView
-            android:id="@+id/temperature_range_value"
+            android:id="@+id/temperature_range_value2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/temperature_range"
+            android:layout_below="@id/temperature_range2"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:text=""
@@ -214,17 +214,17 @@
             android:layout_marginTop="10dp"/>
 
         <RelativeLayout
-            android:id="@+id/air_conditioner_container"
+            android:id="@+id/air_conditioner_container2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/temperature_range_value"
+            android:layout_below="@id/temperature_range_value2"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/layout_bg"
             android:paddingVertical="10dp">
 
             <ImageView
-                android:id="@+id/air_conditioner_image"
+                android:id="@+id/air_conditioner_image2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
@@ -235,10 +235,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/air_conditioner_image">
+                android:layout_toRightOf="@id/air_conditioner_image2">
 
                 <Button
-                    android:id="@+id/air_conditioner_button"
+                    android:id="@+id/air_conditioner_button2"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
@@ -253,52 +253,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_toRightOf="@id/air_conditioner_button">
+                    android:layout_toRightOf="@id/air_conditioner_button2">
 
                     <ImageView
-                        android:id="@+id/decrease_button"
+                        android:id="@+id/decrease_button2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:src="@drawable/minussign" />
 
                     <TextView
-                        android:id="@+id/ac_temp"
+                        android:id="@+id/ac_temp2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_toRightOf="@id/decrease_button"
+                        android:layout_toRightOf="@id/decrease_button2"
                         android:text="26"
                         android:textColor="@color/black"
                         android:textSize="30dp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/increase_button"
+                        android:id="@+id/increase_button2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
-                        android:layout_toRightOf="@id/ac_temp"
+                        android:layout_toRightOf="@id/ac_temp2"
                         android:src="@drawable/add" />
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/fan_light_contrainer"
+            android:id="@+id/fan_light_contrainer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/air_conditioner_container"
+            android:layout_below="@id/air_conditioner_container2"
             android:layout_marginHorizontal="15dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <RelativeLayout
-                android:id="@+id/fan_container"
+                android:id="@+id/fan_container2"
                 android:layout_width="84dp"
                 android:layout_height="112dp"
-                android:layout_below="@id/temperature_range_value"
+                android:layout_below="@id/temperature_range_value2"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
@@ -306,7 +306,7 @@
                 android:paddingVertical="10dp">
 
                 <ImageView
-                    android:id="@+id/fan_image"
+                    android:id="@+id/fan_image2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
@@ -314,13 +314,13 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/fan_image"
+                    android:layout_below="@+id/fan_image2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     android:weightSum="2">
 
                     <Button
-                        android:id="@+id/fan_on"
+                        android:id="@+id/fan_on2"
                         android:layout_width="50dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
@@ -332,7 +332,7 @@
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <Button
-                        android:id="@+id/fan_off"
+                        android:id="@+id/fan_off2"
                         android:layout_width="50dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
@@ -346,10 +346,10 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/light_container"
+                android:id="@+id/light_container2"
                 android:layout_width="91dp"
                 android:layout_height="114dp"
-                android:layout_below="@id/temperature_range_value"
+                android:layout_below="@id/temperature_range_value2"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="-10dp"
                 android:layout_weight="1"
@@ -358,17 +358,17 @@
                 tools:ignore="UseSwitchCompatOrMaterialXml">
 
                 <ImageView
-                    android:id="@+id/light_image"
+                    android:id="@+id/light_image2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/lightoff" />
 
                 <Switch
-                    android:id="@+id/light_switch"
+                    android:id="@+id/light_switch2"
                     android:layout_width="60dp"
                     android:layout_height="48dp"
-                    android:layout_below="@id/light_image"
+                    android:layout_below="@id/light_image2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:switchMinWidth="50dp"
@@ -377,14 +377,14 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/pig_list"
+            android:id="@+id/pig_list2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fan_light_contrainer"
+            android:layout_below="@+id/fan_light_contrainer2"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="20dp"
             tools:ignore="NotSibling" />
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>
