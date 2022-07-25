@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="900dp"
+            android:layout_height="830dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/bg" />
@@ -63,17 +64,18 @@
                         android:textColor="#FA4F00"
                         android:textSize="35dp" />
                 </RelativeLayout>
+
                 <TextView
                     android:id="@+id/temperature_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/temperature_layout"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:text="Nhiệt độ"
                     android:textColor="#CFCFCF"
                     android:textSize="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/temperature_warning"
@@ -140,11 +142,11 @@
                     android:id="@+id/brightness_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="50"
-                    android:textSize="35dp"
-                    android:textColor="#FFAA00"
                     android:layout_centerHorizontal="true"
-                    android:textStyle="bold"/>
+                    android:text="50"
+                    android:textColor="#FFAA00"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/brightness_text"
                     android:layout_width="wrap_content"
@@ -193,11 +195,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/temperature_range"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="dsad"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:text=""
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
 
         <RelativeLayout
             android:id="@+id/air_conditioner_container"
@@ -232,7 +234,8 @@
                     android:background="#E65B5B"
                     android:text="OFF"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -275,20 +278,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/air_conditioner_container"
+            android:layout_marginHorizontal="15dp"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginHorizontal="15dp">
+            android:weightSum="2">
 
             <RelativeLayout
                 android:id="@+id/fan_container"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="84dp"
+                android:layout_height="112dp"
                 android:layout_below="@id/temperature_range_value"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/layout_bg"
-                android:paddingVertical="10dp"
-                android:layout_marginEnd="10dp">
+                android:paddingVertical="10dp">
 
                 <ImageView
                     android:id="@+id/fan_image"
@@ -300,9 +303,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/fan_image"
-                    android:weightSum="2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:weightSum="2">
+
                     <Button
                         android:id="@+id/fan_on"
                         android:layout_width="50dp"
@@ -312,7 +316,9 @@
                         android:background="#FFFFFF"
                         android:text="ON"
                         android:textColor="@color/black"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
                     <Button
                         android:id="@+id/fan_off"
                         android:layout_width="50dp"
@@ -322,20 +328,22 @@
                         android:background="#E65B5B"
                         android:text="OFF"
                         android:textColor="@color/white"
-                        android:textSize="15dp" />/>
+                        android:textSize="15dp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/light_container"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="91dp"
+                android:layout_height="114dp"
                 android:layout_below="@id/temperature_range_value"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="-10dp"
                 android:layout_weight="1"
                 android:background="@drawable/layout_bg"
                 android:paddingVertical="10dp"
-                android:layout_marginBottom="-10dp">
+                tools:ignore="UseSwitchCompatOrMaterialXml">
 
                 <ImageView
                     android:id="@+id/light_image"
@@ -347,21 +355,25 @@
                 <Switch
                     android:id="@+id/light_switch"
                     android:layout_width="60dp"
-                    android:layout_height="20dp"
+                    android:layout_height="48dp"
                     android:layout_below="@id/light_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:switchMinWidth="50dp" />
+                    android:switchMinWidth="50dp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
             </RelativeLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pig_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="380dp"
+            android:layout_height="201dp"
             android:layout_below="@+id/fan_light_contrainer"
+            android:layout_marginHorizontal="15dp"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="15dp"/>
+            android:background="@drawable/layout_bg"
+            tools:ignore="NotSibling" />
 
-    </RelativeLayout>
+        </RelativeLayout>
+
 </ScrollView>
